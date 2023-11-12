@@ -1,0 +1,6 @@
+Translation writing:
+tw|[Word | Translation | Pronunciation (if kazakh and different)] [...] ... = {Answer}; {Alt answer} ...
+Translation parts:
+tp|[Word | Translation | Pronunciation (if kazakh and different)] [...] ... = {Answer}; {Alt answer} ...
+Select the word:
+[Word rus|Translation] = {Answer|Emoji} {Alt answer}

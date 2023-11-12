@@ -4,6 +4,11 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+	<Color x:Key="Correct">#52B788</Color>
+	<Color x:Key="Acceptable">#F2CD60</Color>
+	<Color x:Key="Incorrect">#A52422</Color>
+	<Color x:Key="Border">#D3D0C9</Color>
+	<Color x:Key="Text">#2B2C28</Color>
     <Color x:Key="Primary">#512BD4</Color>
     <Color x:Key="Secondary">#DFD8F7</Color>
     <Color x:Key="Tertiary">#2B0B98</Color>

@@ -1,41 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="QzLangProg.MainPage">
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 x:Class="QzLangProg.MainPage">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+	<ScrollView>
+		<VerticalStackLayout
+			Padding="30,0"
+			VerticalOptions="Start"
+			HorizontalOptions="FillAndExpand">
 
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
 
-            <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
+			<Frame CornerRadius="15" Background="#D3D0C9" BorderColor="#00000000" 
+				   HeightRequest="30" WidthRequest="355" Margin="20">
+				<Frame CornerRadius="25" Background="#4F4C47" BorderColor="#00000000" HeightRequest="25" WidthRequest="350">
+					<Frame HorizontalOptions="Start" CornerRadius="25" BackgroundColor="#52B788" BorderColor="#00000000" HeightRequest="25" WidthRequest="80" Margin="-20">
+					</Frame>
+				</Frame>
+			</Frame>
 
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+			<Frame CornerRadius="15" Background="#D3D0C9" BorderColor="#00000000"
+				Margin="0, 150, 0, 0" WidthRequest="355" HeightRequest="372">
+				<Frame CornerRadius="12.5" Background="#FFFFFF" BorderColor="#00000000" HeightRequest="365" WidthRequest="350">
+					<StackLayout Margin="-20, -22, -20, -21" >
+						<Frame CornerRadius="12.5" HeightRequest="50" Padding="10" BorderColor="#00000000">
+							<Label Text="ASD" />
+						</Frame>
+						<Grid>
+							<Frame BackgroundColor="#DDD9D3" CornerRadius="0" BorderColor="#00000000">
+								<Image 
+									Source="task_background.png"
+									Margin="-20"
+									HorizontalOptions="FillAndExpand"/>
+							</Frame>
+							<Frame BorderColor="#00000000" HeightRequest="50" CornerRadius="0" VerticalOptions="Center">
+								<Button
+									BackgroundColor="#52B788"
+									WidthRequest="50"
+									HeightRequest="40"
+									x:Name="CounterBtn"
+									Text="Click me"
+									SemanticProperties.Hint="Counts the number of times you click"
+									Clicked="OnCounterClicked"
+									HorizontalOptions="Center" />
+							</Frame>
+						</Grid>
+					</StackLayout>
+				</Frame>
+				
+			</Frame>
 
-        </VerticalStackLayout>
-    </ScrollView>
+			
+
+		</VerticalStackLayout>
+	</ScrollView>
 
 </ContentPage>

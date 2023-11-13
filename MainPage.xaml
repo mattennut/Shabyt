@@ -4,16 +4,16 @@
 			 x:Class="QzLangProg.MainPage">
 
 	<ScrollView>
-		<VerticalStackLayout
+        <VerticalStackLayout
 			Padding="30,0"
 			VerticalOptions="Start"
 			HorizontalOptions="FillAndExpand">
 
-
-			<Frame CornerRadius="15" Background="#D3D0C9" BorderColor="#00000000" 
+            <Frame CornerRadius="15" Background="#D3D0C9" BorderColor="#00000000" 
 				   HeightRequest="30" WidthRequest="355" Margin="20">
 				<Frame CornerRadius="25" Background="#4F4C47" BorderColor="#00000000" HeightRequest="25" WidthRequest="350">
-					<Frame HorizontalOptions="Start" CornerRadius="25" BackgroundColor="#52B788" BorderColor="#00000000" HeightRequest="25" WidthRequest="80" Margin="-20">
+					<Frame HorizontalOptions="Start" CornerRadius="25" BackgroundColor="#52B788" BorderColor="#00000000" 
+                           HeightRequest="25" WidthRequest="80" Margin="-20" x:Name="ProgressBarCorrect">
 					</Frame>
 				</Frame>
 			</Frame>

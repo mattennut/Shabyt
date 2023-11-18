@@ -11,7 +11,7 @@ namespace QzLangProg
 				.UseMauiApp<App>()
 				.ConfigureFonts(fonts =>
 				{
-					fonts.AddFont("Montserrat-Medium.ttf", "MontserrtaMedium");
+					fonts.AddFont("Montserrat-Medium.ttf", "MontserratMedium");
 					fonts.AddFont("Montserrat-Black.ttf",  "MontserratBlack");
 				});
 

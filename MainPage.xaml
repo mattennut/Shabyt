@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 x:Class="QzLangProg.MainPage">
+			 x:Class="QzLangProg.MainPage"
+			 BackgroundColor="#FFFFFF">
 
 	<ScrollView>
         <VerticalStackLayout
@@ -9,40 +10,72 @@
 			VerticalOptions="Start"
 			HorizontalOptions="FillAndExpand">
 
-            <Frame CornerRadius="15" Background="#D3D0C9" BorderColor="#00000000" 
-				   HeightRequest="30" WidthRequest="355" Margin="20">
-				<Frame CornerRadius="25" Background="#4F4C47" BorderColor="#00000000" HeightRequest="25" WidthRequest="350">
-					<Frame HorizontalOptions="Start" CornerRadius="25" BackgroundColor="#52B788" BorderColor="#00000000" 
-                           HeightRequest="25" WidthRequest="80" Margin="-20" x:Name="ProgressBarCorrect">
+            <Frame CornerRadius="12.5" Background="#D3D0C9" BorderColor="#00000000" 
+				   HeightRequest="25" WidthRequest="355" Margin="20">
+				<Frame CornerRadius="10" Background="#4F4C47" BorderColor="#00000000" HeightRequest="20" WidthRequest="350">
+					<Frame HorizontalOptions="Start" CornerRadius="10" BackgroundColor="#52B788" BorderColor="#00000000" 
+                           HeightRequest="20" WidthRequest="80" Margin="-20" x:Name="ProgressBarCorrect">
 					</Frame>
 				</Frame>
 			</Frame>
+			<Grid Margin="0, -15" HorizontalOptions="Center" WidthRequest="350">
+				<Label FontFamily="MontserratMedium" FontSize="16" Text="58%" HorizontalOptions="Start"/>
+				<Label FontFamily="MontserratMedium" FontSize="16"  HorizontalOptions="Center">
+
+					<Label.FormattedText>
+						<FormattedString>
+							<Span Text="2" TextColor="{StaticResource Incorrect}" FontFamily="MontserratMedium"/>
+							<Span Text="·" FontFamily="MontserratMedium"/>
+							<Span Text="11" TextColor="{StaticResource Correct}" FontFamily="MontserratMedium"/>
+							<Span Text="·" FontFamily="MontserratMedium"/>
+							<Span Text="3" TextColor="{StaticResource Acceptable}" FontFamily="MontserratMedium"/>
+						</FormattedString>
+					</Label.FormattedText>
+
+				</Label>
+				<Label FontFamily="MontserratMedium" FontSize="16" Text="14/20" HorizontalOptions="End"/>
+			</Grid>
 
 
 			<Frame CornerRadius="15" Background="#D3D0C9" BorderColor="#00000000"
-				Margin="0, 150, 0, 0" WidthRequest="355" HeightRequest="372">
-				<Frame CornerRadius="12.5" Background="#FFFFFF" BorderColor="#00000000" HeightRequest="365" WidthRequest="350">
+				Margin="0, 100, 0, 0" WidthRequest="355" HeightRequest="422">
+				<Frame CornerRadius="12.5" Background="#FFFFFF" BorderColor="#00000000" HeightRequest="415" WidthRequest="350">
 					<StackLayout Margin="-20, -22, -20, -21" >
 						<Frame CornerRadius="12.5" HeightRequest="50" Padding="10" BorderColor="#00000000">
-							<Label Text="ASD" />
+							<StackLayout Orientation="Horizontal" Margin="0, -0" Spacing="7.5">
+								<ImageButton Source="Resources/Images/exit_button.png" HeightRequest="30" WidthRequest="30" CornerRadius="0" 
+									Padding="2.5"/>
+								<Label FontFamily="MontserratMedium" FontSize="24" Text="Әріптестер"/>
+							</StackLayout>
 						</Frame>
 						<Grid>
 							<Frame BackgroundColor="#DDD9D3" CornerRadius="0" BorderColor="#00000000">
 								<Image 
+									x:Name="BackgroundImage"
 									Source="task_background.png"
 									Margin="-20"
-									HorizontalOptions="FillAndExpand"/>
+									HorizontalOptions="FillAndExpand"
+									WidthRequest="410"/>
 							</Frame>
 							<Frame BorderColor="#00000000" HeightRequest="50" CornerRadius="0" VerticalOptions="Center">
-								<Button
-									BackgroundColor="#52B788"
-									WidthRequest="50"
-									HeightRequest="40"
-									x:Name="CounterBtn"
-									Text="Click me"
-									SemanticProperties.Hint="Counts the number of times you click"
-									Clicked="OnCounterClicked"
-									HorizontalOptions="Center" />
+								<StackLayout Orientation="Horizontal" Margin="-15, -20" Spacing="7.5">
+									<Frame Padding="0" HeightRequest="40">
+										<Entry WidthRequest="272.5" BackgroundColor="#EDEAF4"></Entry>
+									</Frame>
+									<BoxView HeightRequest="35" WidthRequest="2.5" Color="#D3D0C9" CornerRadius="1.25"/>
+									<ImageButton
+										Margin="-7.5"
+										CornerRadius="10"
+										BackgroundColor="#52B788"
+										WidthRequest="65"
+										HeightRequest="55"
+										Padding="7.5"
+										x:Name="CounterBtn"
+										Source="Resources/Images/send_button.png"
+										SemanticProperties.Hint="Counts the number of times you click"
+										Clicked="OnCounterClicked"
+										HorizontalOptions="Center" />
+								</StackLayout>
 							</Frame>
 						</Grid>
 					</StackLayout>

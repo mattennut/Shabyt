@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="QzLangProg.TaskPage"
+			xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
+			Style="{StaticResource Background}"
+			xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+            android:Application.WindowSoftInputModeAdjust="Resize"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<Style x:Key="MessageBorder" TargetType="Border">
+				<Setter Property="BackgroundColor" 
+				Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource MessageDark}}" />
+				<Setter Property="Margin" 
+				Value="0, 5" />
+			</Style>
+
+			<Style x:Key="Panels" TargetType="Frame">
+				<Setter Property="BackgroundColor" 
+			Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource PanelsDark}}" />
+			</Style>
+
+			<Style x:Key="OrnamentBackground" TargetType="Frame">
+				<Setter Property="BackgroundColor" 
+				Value="{AppThemeBinding Light={StaticResource OrnamentBackgroundLight}, Dark={StaticResource BackgroundDark}}" />
+			</Style>
+
+			<Style x:Key="Ornament" TargetType="Image">
+				<Setter Property="Source" Value="{AppThemeBinding Light=task_background_light.png, Dark=task_background_dark.png}"/>
+			</Style>
+		</ResourceDictionary>
+	</ContentPage.Resources>
+
+	<Shell.BackButtonBehavior>
+		<BackButtonBehavior Command="{Binding BackButtonPressedCommand}"/>
+	</Shell.BackButtonBehavior>
+	
+	<VerticalStackLayout
+		VerticalOptions="Start"
+		HorizontalOptions="FillAndExpand"
+		x:Name="TaskPageSL">
+
+		<!-- Frame -->
+		<!--<Frame CornerRadius="12.5" Background="#D3D0C9" BorderColor="#00000000" Margin="0, 100, 0, 0" WidthRequest="355" HeightRequest="422"/>-->
+
+
+		<Grid ColumnDefinitions="15, *, 15" RowDefinitions="100, 500, 50" VerticalOptions="Start" Padding="0, 10, 0, 0">
+			<VerticalStackLayout Grid.Column="1" Grid.Row="0">
+				<Border Stroke="{AppThemeBinding Light={StaticResource BorderLight}, Dark={StaticResource BorderDark}}"
+			StrokeThickness="2.5" Padding="0" Margin="0, 7.5, 0, 2.5">
+					<Border.StrokeShape>
+						<RoundRectangle CornerRadius="12.5" />
+					</Border.StrokeShape>
+					<Frame CornerRadius="10" Background="{AppThemeBinding Light={StaticResource EntryLight}, Dark=#19181C}" 
+						   BorderColor="Transparent" HeightRequest="20" Padding="0" x:Name="ProgressBarFrame">
+						<AbsoluteLayout>
+							<Frame Style="{StaticResource CorrectProgressBar}" HorizontalOptions="Start" BorderColor="#00000000" 
+						HeightRequest="20" WidthRequest="20" CornerRadius="0" x:Name="ProgressBarHalfCorrect" Padding="0"/>
+							<Frame Style="{StaticResource CorrectProgressBar}" HorizontalOptions="Start" BorderColor="#00000000" 
+						HeightRequest="20" WidthRequest="20" CornerRadius="0" x:Name="ProgressBarCorrect" Padding="0" IsVisible="false"/>
+							<Frame Style="{StaticResource IncorrectProgressBar}" HorizontalOptions="Start" BorderColor="#00000000" 
+						HeightRequest="20" WidthRequest="20" CornerRadius="0" x:Name="ProgressBarIncorrect" Padding="0" Margin="0, 0, 0, 0"/>
+						</AbsoluteLayout>
+					</Frame>
+				</Border>
+				<Grid Margin="5, 0">
+					<Label FontFamily="GeologicaLight" FontSize="16" HorizontalOptions="Start" x:Name="StreakLabel"/>
+					<Label FontFamily="GeologicaLight" FontSize="16"  HorizontalOptions="Center">
+
+						<Label.FormattedText>
+							<FormattedString>
+								<Span Text="0" Style="{StaticResource IncorrectAnswers}" FontFamily="GeologicaBold" x:Name="IncorrectAnswerSpan"/>
+								<Span Text="·" FontFamily="GeologicaLight" TextColor="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}"/>
+								<Span Text="0" Style="{StaticResource CorrectAnswers}" FontFamily="GeologicaBold" x:Name="CorrectAnswerSpan"/>
+								<!--<Span Text="·" FontFamily="GeologicaLight" TextColor="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}"/>
+								<Span Text="0" Style="{StaticResource AcceptableAnswers}" FontFamily="GeologicaLight" x:Name="HalfCorrectAnswerSpan"/>-->
+							</FormattedString>
+						</Label.FormattedText>
+
+					</Label>
+					<Label FontFamily="GeologicaLight" x:Name="ProgressProportion" FontSize="16" Text="14/20" HorizontalOptions="End"/>
+				</Grid>
+			</VerticalStackLayout>
+
+			<Border Stroke="{AppThemeBinding Light={StaticResource BorderLight}, Dark={StaticResource BorderDark}}" 
+			Margin="0, 0, 0, 0" HeightRequest="450" StrokeThickness="2.5" Padding="0" Grid.Column="1" Grid.Row="1">
+				<Border.StrokeShape>
+					<RoundRectangle CornerRadius="15" />
+				</Border.StrokeShape>
+				<Border Style="{StaticResource Panels}" StrokeThickness="0" 
+				HeightRequest="445" Padding="15">
+					<Border.StrokeShape>
+						<RoundRectangle CornerRadius="12.5"/>
+					</Border.StrokeShape>
+					<StackLayout Margin="-15, -15" >
+
+						<!-- Header -->
+						<Frame CornerRadius="12.5" HeightRequest="50" Padding="0" BorderColor="#00000000" Style="{StaticResource Panels}">
+							<StackLayout Orientation="Horizontal" Margin="0" Spacing="7.5">
+								<AbsoluteLayout HeightRequest="37.5" WidthRequest="37.5" Margin="7.5, 0, 0, 0">
+									<Button
+										WidthRequest="37.5"
+										HeightRequest="37.5"
+										CornerRadius="20"
+										BorderWidth="2.5"
+										x:Name="exitButton"
+										Clicked="OnExitClicked"
+										HorizontalOptions="Center"/>
+									<Image Source="Resources/Images/arrow_back.png" HeightRequest="25" 
+											AbsoluteLayout.LayoutBounds="0.8,0.5"
+											AbsoluteLayout.LayoutFlags="PositionProportional">
+										<Image.Behaviors>
+											<toolkit:IconTintColorBehavior TintColor="{AppThemeBinding 
+												Light={StaticResource IncorrectLight}, 
+												Dark={StaticResource IncorrectDark}}"/>
+										</Image.Behaviors>
+									</Image>
+								</AbsoluteLayout>
+								<Label FontFamily="GeologicaLight" VerticalOptions="Center" FontSize="24" Text="SampleTexta" x:Name="HeaderName"/>
+							</StackLayout>
+						</Frame>
+
+						<!--Style="{StaticResource CorrectProgressBar}"-->
+
+						<!-- Content and bottom menu -->
+						<Grid HeightRequest='397.5'>
+
+							<Frame Style="{StaticResource OrnamentBackground}" 
+							   CornerRadius="0" BorderColor="#00000000" HorizontalOptions="FillAndExpand"
+							   >
+								<Image 
+								Style="{StaticResource Ornament}"
+								Margin="-20"
+								Aspect="AspectFill"
+								/>
+							</Frame>
+
+
+
+							<!-- === CONTENT === -->
+							<!--GR TB AR			TR FG AQ FT bq		AM SW SP AS TF-->
+
+							<!-- GR|Given Material -->
+							<StackLayout IsVisible="false" x:Name="grStackLayout">
+								<ScrollView HeightRequest="341" x:Name="grScrollView">
+									<StackLayout x:Name="grLabelLayout" Padding="12.5">
+										<!-- Given material will appear here -->
+									</StackLayout>
+								</ScrollView>
+							</StackLayout>
+
+							<!-- TB|Table -->
+							<StackLayout IsVisible="false" x:Name="tbStackLayout">
+								<ScrollView HeightRequest="341" Padding="12.5">
+									<StackLayout>
+										<StackLayout x:Name="tbPretextLayout">
+											<Frame BackgroundColor="#FFFFFF" Padding="10" Margin="20" CornerRadius="20" BorderColor="#00000000"
+									HorizontalOptions="Start" VerticalOptions="Start">
+												<Label Text="Pretext" FontSize="14" x:Name="tbPretext" HorizontalOptions="Start"/>
+											</Frame>
+										</StackLayout>
+
+										<Border Style="{StaticResource MessageBorder}" Padding="5" 
+												VerticalOptions="Start" Stroke="#00000000">
+											<Border.StrokeShape>
+												<RoundRectangle CornerRadius="10, 10, 0, 10"/>
+											</Border.StrokeShape>
+											<CollectionView ItemsLayout="HorizontalGrid, 2" x:Name="tbTableCollectionView">
+
+												<CollectionView.ItemTemplate>
+													<DataTemplate>
+														<VerticalStackLayout Margin="2" MinimumWidthRequest="30">
+															<Frame BackgroundColor="{AppThemeBinding 
+																Dark={DynamicResource QuestionDark}, Light={DynamicResource EntryLight}}" 
+																   BorderColor="Transparent" Padding="5" CornerRadius="2.5">
+																<Label Text="{Binding .}"/>
+															</Frame>
+														</VerticalStackLayout>
+													</DataTemplate>
+												</CollectionView.ItemTemplate>
+											</CollectionView>
+										</Border>
+
+										<StackLayout x:Name="tbPosttextLayout">
+											<Frame BackgroundColor="#FFFFFF" Padding="10" Margin="20" CornerRadius="20" BorderColor="#00000000"
+									HorizontalOptions="Start" VerticalOptions="Start">
+												<Label Text="PosttextPosttextPosttextPosttextPosttextPosttextPosttextPosttextPosttextPosttextPosttextPosttextPosttext" FontSize="14" x:Name="tbPosttext" HorizontalOptions="Start"/>
+											</Frame>
+										</StackLayout>
+									</StackLayout>
+								</ScrollView>
+							</StackLayout>
+
+							<!-- AR|Audio Resource -->
+							<StackLayout x:Name="arStackLayout" IsVisible="false" Padding="12.5">
+								<Border Padding="10" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Stroke="#00000000" Style="{StaticResource MessageBorder}">
+									<Border.StrokeShape>
+										<RoundRectangle CornerRadius="10, 10, 0, 10"/>
+									</Border.StrokeShape>
+									<HorizontalStackLayout Spacing="10" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+										<AbsoluteLayout HeightRequest="30" WidthRequest="30">
+											<Button StyleClass="FilledTonalButton" Clicked="OnPlayAudio" CornerRadius="15" HeightRequest="30" WidthRequest="30" BorderWidth="2.5"/>
+											<Image Source="Light=Resources/Images/play_button_dark.png" 
+													AbsoluteLayout.LayoutBounds="0.55,0.5" HeightRequest="15"
+													AbsoluteLayout.LayoutFlags="PositionProportional">
+												<Image.Behaviors>
+													<toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Light={StaticResource CorrectLight}, Dark=White}"/>
+												</Image.Behaviors>
+											</Image>
+										</AbsoluteLayout>
+										<ProgressBar Progress="0" HorizontalOptions="FillAndExpand" WidthRequest="237.5" x:Name="arAudioProgressBar" HeightRequest="1"/>
+									</HorizontalStackLayout>
+
+								</Border>
+
+								<Border Padding="10" HorizontalOptions="Start" VerticalOptions="Start" Stroke="#00000000" Style="{StaticResource MessageBorder}">
+									<Border.StrokeShape>
+										<RoundRectangle CornerRadius="10, 10, 0, 10"/>
+									</Border.StrokeShape>
+									<VerticalStackLayout>
+										<Label Text="SampleText" FontSize="14" x:Name="arGiven" HorizontalOptions="Start"/>
+										<Label Text="SampleText" FontSize="12" FontAttributes="Italic" x:Name="arTranslation" HorizontalOptions="Start"/>
+									</VerticalStackLayout>
+								</Border>
+
+								<StackLayout x:Name="arExampleStackLayout">
+									<Frame Style="{StaticResource QuestionFrame}" Padding="7.5" CornerRadius="7.5" BorderColor="#00000000"
+								HorizontalOptions="Center" VerticalOptions="Start">
+										<Label Text="Пример" FontSize="12"  HorizontalOptions="Center"/>
+									</Frame>
+
+									<Border Margin="0, 5, 0, 0" Padding="10" HorizontalOptions="Start" VerticalOptions="Start" Stroke="#00000000" Style="{StaticResource MessageBorder}">
+										<Border.StrokeShape>
+											<RoundRectangle CornerRadius="10, 10, 0, 10"/>
+										</Border.StrokeShape>
+										<VerticalStackLayout>
+											<Label Text="SampleText" FontSize="14" x:Name="arExample" HorizontalOptions="Start"/>
+											<Label Text="SampleText" FontSize="12" FontAttributes="Italic" x:Name="arExampleTranslation" HorizontalOptions="Start"/>
+										</VerticalStackLayout>
+									</Border>
+								</StackLayout>
+							</StackLayout>
+
+							<!-- TR|Translate -->
+							<StackLayout x:Name="trStackLayout" IsVisible="false" Padding="12.5">
+								<Border Padding="10" HorizontalOptions="Start" VerticalOptions="Start" Stroke="#00000000" Style="{StaticResource MessageBorder}">
+									<Border.StrokeShape>
+										<RoundRectangle CornerRadius="10, 10, 0, 10"/>
+									</Border.StrokeShape>
+									<Label Text="SampleText" FontSize="14" x:Name="trGiven" HorizontalOptions="Start"/>
+								</Border>
+
+								<Frame Style="{StaticResource QuestionFrame}" Margin="0, 5" Padding="7.5" CornerRadius="7.5" BorderColor="#00000000"
+						HorizontalOptions="Center" VerticalOptions="Start">
+									<Label Text="Переведите предложение" FontSize="12"  HorizontalOptions="Center"/>
+								</Frame>
+							</StackLayout>
+
+							<!-- FG|Fill the Gaps -->
+							<StackLayout x:Name="fgStackLayout" IsVisible="false" Padding="12.5">
+								<Border Style="{StaticResource MessageBorder}" Padding="10" HorizontalOptions="Start" VerticalOptions="Start" Stroke="#00000000">
+									<Border.StrokeShape>
+										<RoundRectangle CornerRadius="10, 10, 0, 10"/>
+									</Border.StrokeShape>
+									<Label Text="SampleText" FontSize="14" x:Name="fgGiven" HorizontalOptions="Start"/>
+								</Border>
+
+								<Frame Style="{StaticResource QuestionFrame}" Padding="7.5" Margin="-10" CornerRadius="7.5" BorderColor="#00000000" 
+						HorizontalOptions="Center" VerticalOptions="Start">
+									<Label Text="Заполните пустые поля" FontSize="12"  HorizontalOptions="Center"/>
+								</Frame>
+							</StackLayout>
+
+							<!-- AQ|Audio Question -->
+							<StackLayout x:Name="aqStackLayout" IsVisible="false" Padding="12.5">
+								<Border Padding="10" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Stroke="#00000000" Style="{StaticResource MessageBorder}">
+									<Border.StrokeShape>
+										<RoundRectangle CornerRadius="10, 10, 0, 10"/>
+									</Border.StrokeShape>
+									<HorizontalStackLayout Spacing="10" HorizontalOptions="FillAndExpand">
+										<AbsoluteLayout HeightRequest="30" WidthRequest="30">
+											<Button StyleClass="FilledTonalButton" Clicked="OnPlayAudio" CornerRadius="15" HeightRequest="30" WidthRequest="30" BorderWidth="2.5"/>
+											<Image Source="Light=Resources/Images/play_button_dark.png" 
+												AbsoluteLayout.LayoutBounds="0.55,0.5" HeightRequest="15"
+												AbsoluteLayout.LayoutFlags="PositionProportional">
+												<Image.Behaviors>
+													<toolkit:IconTintColorBehavior TintColor="{AppThemeBinding
+														Light={StaticResource CorrectLight}}">
+														
+													</toolkit:IconTintColorBehavior>
+												</Image.Behaviors>
+											</Image>
+										</AbsoluteLayout>
+
+										<ProgressBar Progress="0" HorizontalOptions="FillAndExpand" WidthRequest="237.5" x:Name="aqAudioProgressBar"/>
+									</HorizontalStackLayout>
+								</Border>
+
+								<Border Padding="10" HorizontalOptions="Start" VerticalOptions="Start" Stroke="#00000000" Style="{StaticResource MessageBorder}">
+									<Border.StrokeShape>
+										<RoundRectangle CornerRadius="10, 10, 0, 10"/>
+									</Border.StrokeShape>
+									<VerticalStackLayout>
+										<Label Text="SampleText" FontSize="14" x:Name="aqQuestion" HorizontalOptions="Start"/>
+									</VerticalStackLayout>
+								</Border>
+
+								<Frame Style="{StaticResource QuestionFrame}" Padding="7.5" Margin="0, 5" CornerRadius="7.5" BorderColor="#00000000"
+						HorizontalOptions="Center" VerticalOptions="Start">
+									<Label Text="Ответьте на вопрос" FontSize="12"  HorizontalOptions="Center"/>
+								</Frame>
+							</StackLayout>
+
+							<!-- FT|Fill with Translation -->
+							<StackLayout x:Name="ftStackLayout" IsVisible="false" Padding="12.5">
+								<Border Padding="10" HorizontalOptions="Start" VerticalOptions="Start" Stroke="#00000000" Style="{StaticResource MessageBorder}">
+									<Border.StrokeShape>
+										<RoundRectangle CornerRadius="10, 10, 0, 10"/>
+									</Border.StrokeShape>
+									<VerticalStackLayout>
+										<Label Text="SampleText" FontSize="14" x:Name="ftGiven" HorizontalOptions="Start"/>
+									</VerticalStackLayout>
+								</Border>
+
+								<Frame Style="{StaticResource QuestionFrame}" Padding="7.5" Margin="0, 5, 0, 10" CornerRadius="7.5" BorderColor="#00000000"
+									HorizontalOptions="Center" VerticalOptions="Start">
+									<Label Text="Переведите заполнив поля" FontSize="12"  HorizontalOptions="Center"/>
+								</Frame>
+
+								<Border Style="{StaticResource MessageBorder}" Padding="10" HorizontalOptions="Start" 
+										VerticalOptions="Start" Stroke="#00000000">
+									<Border.StrokeShape>
+										<RoundRectangle CornerRadius="10, 10, 0, 10"/>
+									</Border.StrokeShape>
+									<Label Text="SampleText" FontSize="14" x:Name="ftGapped" HorizontalOptions="Start"/>
+								</Border>
+							</StackLayout>
+
+							<!-- AM|Audio Match -->
+							<StackLayout x:Name="amStackLayout" IsVisible="false">
+								<ScrollView HeightRequest="392.5">
+									<StackLayout Padding="12.5">
+										<Border Margin="0, 5, 0, 5" Style="{StaticResource MessageBorder}" Padding="10" HorizontalOptions="Start" VerticalOptions="Start" Stroke="#00000000">
+											<Border.StrokeShape>
+												<RoundRectangle CornerRadius="10, 10, 0, 10"/>
+											</Border.StrokeShape>
+											<Label Text="Given Word" FontSize="14" x:Name="amGiven" HorizontalOptions="Start"/>
+										</Border>
+
+										<Frame Style="{StaticResource QuestionFrame}" Padding="7.5" Margin="0" CornerRadius="7.5" BorderColor="#00000000" 
+											HorizontalOptions="Center" VerticalOptions="Start">
+											<Label Text="Выберите что слышите" FontSize="12" HorizontalOptions="Center"/>
+										</Frame>
+
+										<Border Margin="0, 5, 0, 5" Style="{StaticResource MessageBorder}" Padding="10" HorizontalOptions="Start" VerticalOptions="Start" Stroke="#00000000">
+											<Border.StrokeShape>
+												<RoundRectangle CornerRadius="10, 10, 0, 10"/>
+											</Border.StrokeShape>
+
+
+											<VerticalStackLayout x:Name="amAudioStackLayout">
+												<!-- Audio messages will appear here -->
+											</VerticalStackLayout>
+										</Border>
+									</StackLayout>
+								</ScrollView>
+							</StackLayout>
+
+							<!-- SW|Select word (with emojis) -->
+							<StackLayout x:Name="swStackLayout" IsVisible="false">
+								<ScrollView HeightRequest="392.5">
+									<StackLayout Padding="12.5">
+										<Frame Style="{StaticResource QuestionFrame}" Padding="7.5" Margin="0" CornerRadius="7.5" BorderColor="#00000000" 
+							HorizontalOptions="Center" VerticalOptions="Start">
+											<Label Text="Переведите слово" FontSize="12"  HorizontalOptions="Center"/>
+										</Frame>
+
+										<Border Margin="0, 5, 0, 5" Style="{StaticResource MessageBorder}" Padding="10" HorizontalOptions="Start" VerticalOptions="Start" Stroke="#00000000">
+											<Border.StrokeShape>
+												<RoundRectangle CornerRadius="10, 10, 0, 10"/>
+											</Border.StrokeShape>
+											<Label Text="Given Word" FontSize="14" x:Name="swGiven" HorizontalOptions="Start"/>
+										</Border>
+
+										<Border Margin="0" Style="{StaticResource MessageBorder}" Padding="0" HorizontalOptions="Start" VerticalOptions="StartAndExpand" Stroke="#00000000">
+											<Border.StrokeShape>
+												<RoundRectangle CornerRadius="10, 10, 0, 10"/>
+											</Border.StrokeShape>
+											<Grid ColumnDefinitions="*, *" WidthRequest="270" Padding="5" RowDefinitions="*, *, *, *" 
+												  x:Name="swEmojiGrid">
+
+												<Image Source="Resources\Images\Icons\man.png"/>
+												<!-- Emoji buttons will appear here -->
+
+											</Grid>
+										</Border>
+									</StackLayout>
+								</ScrollView>
+							</StackLayout>
+
+							<!-- SP|Select phrase -->
+							<StackLayout x:Name="spStackLayout" IsVisible="false">
+								<ScrollView x:Name="spScrollView">
+									<StackLayout x:Name="spScrollStackLayout" Padding="12.5">
+										<Border Style="{StaticResource MessageBorder}" Padding="10" HorizontalOptions="Start" VerticalOptions="Start" Stroke="#00000000">
+											<Border.StrokeShape>
+												<RoundRectangle CornerRadius="10, 10, 0, 10"/>
+											</Border.StrokeShape>
+											<Label Text="SampleText" FontSize="14" x:Name="spGiven" HorizontalOptions="Start"/>
+										</Border>
+										<Frame Style="{StaticResource QuestionFrame}" Padding="7.5" CornerRadius="10" BorderColor="#00000000"
+							HorizontalOptions="Center" VerticalOptions="Start">
+											<Label Text="Выберите фразу" FontSize="12"  HorizontalOptions="Center" x:Name="spQuestion"/>
+										</Frame>
+									</StackLayout>
+								</ScrollView>
+							</StackLayout>
+
+							<!-- AS|Audio Select -->
+							<StackLayout x:Name="asStackLayout" IsVisible="false">
+								<ScrollView x:Name="asScrollView">
+									<StackLayout x:Name="asScrollStackLayout" Padding="12.5">
+										<Border Padding="10" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Stroke="#00000000" 
+												Style="{StaticResource MessageBorder}" Margin="0, 5">
+											<Border.StrokeShape>
+												<RoundRectangle CornerRadius="10, 10, 0, 10"/>
+											</Border.StrokeShape>
+											<HorizontalStackLayout Spacing="10" HorizontalOptions="FillAndExpand">
+												<AbsoluteLayout HeightRequest="30" WidthRequest="30">
+													<Button StyleClass="FilledTonalButton" Clicked="OnPlayAudio" CornerRadius="15" HeightRequest="30" WidthRequest="30" BorderWidth="2.5"/>
+													<Image Source="{AppThemeBinding Dark=Resources/Images/play_button_dark.png, Light=Resources/Images/play_button_light.png}" 
+														AbsoluteLayout.LayoutBounds="0.55,0.5" HeightRequest="15"
+														AbsoluteLayout.LayoutFlags="PositionProportional"/>
+												</AbsoluteLayout>
+
+												<ProgressBar Progress="0" HorizontalOptions="FillAndExpand" WidthRequest="237.5" x:Name="asAudioProgressBar"/>
+											</HorizontalStackLayout>
+
+										</Border>
+
+										<Frame Style="{StaticResource QuestionFrame}" Padding="7.5" Margin="10" CornerRadius="7.5" BorderColor="#00000000"
+										HorizontalOptions="Center" VerticalOptions="Start">
+											<Label Text="Пример" FontSize="12"  HorizontalOptions="Center" x:Name="asQuestion"/>
+										</Frame>
+									</StackLayout>
+								</ScrollView>
+							</StackLayout>
+
+							<!-- TF|True/False -->
+							<StackLayout x:Name="tfStackLayout" IsVisible="false" Padding="12.5">
+								<Border Style="{StaticResource MessageBorder}" Padding="10" HorizontalOptions="Start" 
+										VerticalOptions="Start" Stroke="#00000000">
+									<Border.StrokeShape>
+										<RoundRectangle CornerRadius="10, 10, 0, 10"/>
+									</Border.StrokeShape>
+									<Label Text="SampleText" FontSize="14" x:Name="tfGiven" HorizontalOptions="Start"/>
+								</Border>
+
+								<Frame Style="{StaticResource QuestionFrame}" Padding="7.5" CornerRadius="10" BorderColor="#00000000"
+							HorizontalOptions="Center" VerticalOptions="Start">
+									<Label Text="Вопрос?" FontSize="12"  HorizontalOptions="Center" x:Name="tfQuestion"/>
+								</Frame>
+							</StackLayout>
+
+							<!-- === BOTTOM MENU === -->
+
+							<!-- Bottom menu (Entry) -->
+							<Border Stroke="#00000000" HeightRequest="55" HorizontalOptions="FillAndExpand" VerticalOptions="End" IsVisible="true"
+							x:Name="entryBottomMenu" Style="{StaticResource Panels}" StrokeThickness="0" Padding="5, 3, 5, 6">
+								<Grid ColumnDefinitions="*, 10, 50">
+									<Border Padding="0" BackgroundColor="#00000000" StrokeThickness="0">
+										<Border.StrokeShape>
+											<RoundRectangle CornerRadius="5"/>
+										</Border.StrokeShape>
+										<Entry HorizontalOptions="FillAndExpand" x:Name="InputEntry" IsSpellCheckEnabled="False" Grid.Column="0" VerticalOptions="Center"/>
+									</Border>
+									<BoxView HeightRequest="35" WidthRequest="2.5" Color="#D3D0C9" 
+									 CornerRadius="1.25" Grid.Column="1" VerticalOptions="Center"/>
+									<AbsoluteLayout Grid.Column="2" HeightRequest="40" VerticalOptions="Center">
+										<Button
+											WidthRequest="50"
+											HeightRequest="40"
+											CornerRadius="10"
+											Padding="7.5"
+											Style="{StaticResource AccentButton}"
+											x:Name="entrySubmitButton"
+											Clicked="OnSubmitClicked"
+											HorizontalOptions="Center"/>
+										<Image Source="Resources/Images/send_button.png" WidthRequest="30" 
+											   AbsoluteLayout.LayoutBounds="0.55,0.5"
+												AbsoluteLayout.LayoutFlags="PositionProportional"/>
+									</AbsoluteLayout>
+								</Grid>
+							</Border>
+
+							<!-- Bottom menu (Choose Phrase) -->
+							<Border Stroke="#00000000" VerticalOptions="End"
+						   IsVisible="false" x:Name="spBottomMenu" Style="{StaticResource Panels}" Padding="20, 20, 20, 22.5">
+								<StackLayout Orientation="Vertical" Margin="-15, -15" Spacing="7.5" x:Name="spBMStackLayout">
+									<Button BorderWidth="2.5" HeightRequest="35" Padding="-5"
+						Text="SampleAnswer" />
+									<Button BorderWidth="2.5" HeightRequest="35" Padding="-5"
+						Text="SampleAnswer" />
+									<Button BorderWidth="2.5" HeightRequest="35" Padding="-5"
+						Text="SampleAnswer" Clicked="OnSubmitClicked"/>
+								</StackLayout>
+							</Border>
+
+							<!-- Bottom menu (True/False) -->
+							<Border Stroke="#00000000" HeightRequest="50" VerticalOptions="EndAndExpand" 
+						   IsVisible="false" x:Name="tfBottomMenu" Style="{StaticResource Panels}" Padding="20, 20, 20, 22.5">
+								<StackLayout Orientation="Horizontal" Margin="-15, -15" Spacing="7.5">
+									<Button  BorderWidth="2.5" HeightRequest="35" Padding="-5" HorizontalOptions="FillAndExpand"
+					Text="Правда" x:Name="tfBMTrueButton"/>
+									<Button  BorderWidth="2.5" HeightRequest="35" Padding="-5" HorizontalOptions="FillAndExpand"
+					Text="Ложь" x:Name="tfBMFalseButton"/>
+								</StackLayout>
+							</Border>
+
+							<!-- Bottom menu (Empty) -->
+							<Border Stroke="#00000000" HeightRequest="55" HorizontalOptions="FillAndExpand" VerticalOptions="End" IsVisible="false" 
+							x:Name="emptyBottomMenu" Style="{StaticResource Panels}" StrokeThickness="0" Padding="5, 3, 5, 6">
+								<Grid ColumnDefinitions="*, 10, 50">
+									<AbsoluteLayout Grid.Column="2" HeightRequest="40" VerticalOptions="Center">
+										<Button
+											WidthRequest="50"
+											HeightRequest="40"
+											CornerRadius="10"
+											Padding="7.5"
+											x:Name="emptySubmitButton"
+											Style="{StaticResource AccentButton}"
+											SemanticProperties.Hint="Counts the number of times you click"
+											Clicked="OnSubmitClicked"
+											HorizontalOptions="Center"/>
+										<Image Source="Resources/Images/send_button.png" WidthRequest="30" 
+											AbsoluteLayout.LayoutBounds="0.55,0.5"
+											AbsoluteLayout.LayoutFlags="PositionProportional"/>
+									</AbsoluteLayout>
+								</Grid>
+							</Border>
+
+							<!-- Results menu -->
+							<Border x:Name="ResultsMenu" Margin="-2.5, 0, -2.5, -5" VerticalOptions="End" Stroke="Transparent">
+								<Border.StrokeShape>
+									<RoundRectangle CornerRadius="5, 5, 0, 0"/>
+								</Border.StrokeShape>
+								<VerticalStackLayout Padding="10">
+									<Border Stroke="Transparent" 
+										HeightRequest="20" Margin="-10, -10, -10, 7.5" x:Name="FeedbackReaction">
+										<Border.StrokeShape>
+											<RoundRectangle CornerRadius="10, 10, 0, 0"/>
+										</Border.StrokeShape>
+									</Border>
+									<Border Stroke="Transparent" Margin="-10, -10, -10, -10" Style="{StaticResource Panels}">
+										<Border.StrokeShape>
+											<RoundRectangle CornerRadius="0, 0, 0, 0"/>
+										</Border.StrokeShape>
+										<VerticalStackLayout Spacing="10" Padding="5, 5, 6.5, 5">
+											<Label 
+												Text="Oopsie! You're not supposed to see this!"
+												VerticalOptions="Center" 
+												HorizontalOptions="Center" 
+												x:Name="FeedbackText"/>
+
+											<Button Text="Следующее задание" Clicked="OnRender" BorderWidth="2.5" HeightRequest="40"
+													BorderColor="{AppThemeBinding Light={StaticResource ButtonBorderLight},
+														Dark={StaticResource BorderDark}}"/>
+										</VerticalStackLayout>
+									</Border>
+								</VerticalStackLayout>
+							</Border>
+						</Grid>
+					</StackLayout>
+				</Border>
+			</Border>
+		</Grid>
+	</VerticalStackLayout>
+</ContentPage>

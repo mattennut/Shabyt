@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QzLangProg.ResultPage"
+             Title="ResultPage"
+			 Style="{StaticResource Background}">
+	
+    <VerticalStackLayout VerticalOptions="Center">
+		<StackLayout Margin="10">
+			<Label FontSize="32" Style="{StaticResource AccentText}" HorizontalOptions="Center"
+				   FontFamily="GeologicaBold" Text="Урок завершен!"/>
+
+			<Grid ColumnDefinitions="2*, 10, *" Margin="0, 15, 0, 30">
+				<Border StrokeShape="RoundRectangle 10" StrokeThickness="2.5" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+					<StackLayout Padding="10" Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+						<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" HeightRequest="40">
+							<Label Text="Успеваемость" VerticalOptions="End" LineBreakMode="CharacterWrap" Margin="0, 0, 0, 10"/>
+							<Label FontSize="21" FontFamily="GeologicaBold" x:Name="SuccessRateLabel"
+								   HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand"/>
+						</StackLayout>
+						
+						<BoxView Margin="5" HeightRequest="2.5" Color="#D3D0C9" 
+							CornerRadius="1.25" Grid.Column="1" VerticalOptions="Center"/>
+						
+						<Grid ColumnDefinitions="*, 5, *" HorizontalOptions="FillAndExpand" HeightRequest="55">
+							<StackLayout Orientation="Vertical">
+								<Label Text="Ошибок" HorizontalOptions="Center" Style="{StaticResource IncorrectAnswers}"/>
+								<Label FontSize="21" FontFamily="GeologicaBold" x:Name="MistakesLabel"
+									   HorizontalOptions="Center" Text="5" />
+							</StackLayout>
+							
+							<StackLayout Orientation="Vertical" Grid.Column="2">
+								<Label Text="Стрик" HorizontalOptions="Center" Style="{StaticResource CorrectAnswers}"/>
+								<Label FontSize="21" FontFamily="GeologicaBold" 
+									   HorizontalOptions="Center" x:Name="StreakLabel" />
+							</StackLayout>
+						</Grid>
+					</StackLayout>
+				</Border>
+
+				<StackLayout Grid.Column="2" Spacing="10">
+					<Border StrokeShape="RoundRectangle 10" StrokeThickness="2.5" Padding="10"
+							VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Column="2">
+						<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HeightRequest="40">
+							<Label FontSize="21" FontFamily="GeologicaBold" 
+								   x:Name="XPLabel" VerticalOptions="CenterAndExpand"/>
+							<Label Text="  опыта" VerticalOptions="CenterAndExpand" LineBreakMode="CharacterWrap"/>
+						</StackLayout>
+					</Border>
+					<Border StrokeShape="RoundRectangle 10" StrokeThickness="2.5" Padding="10"
+							VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Column="2">
+						<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HeightRequest="40">
+							<Label FontSize="21" FontFamily="GeologicaBold" 
+								   x:Name="AsyqsLabel" VerticalOptions="CenterAndExpand"/>
+							<Label Text="  асықов" VerticalOptions="CenterAndExpand" LineBreakMode="CharacterWrap"/>
+						</StackLayout>
+					</Border>
+				</StackLayout>
+			</Grid>
+
+			<BoxView BackgroundColor="Transparent" Color="Transparent"/>
+
+			<Button Text="На главную" Clicked="ToMainPageClicked" BorderWidth="3" BorderColor=
+					"{AppThemeBinding Light={StaticResource ButtonBorderLight}, Dark={StaticResource BorderDark}}"/>
+			
+			<BoxView HeightRequest="60" BackgroundColor="Transparent" Color="Transparent"/>
+		</StackLayout>
+	</VerticalStackLayout>
+</ContentPage>

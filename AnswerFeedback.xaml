@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<the49:BottomSheet xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+					x:Class="QzLangProg.AnswerFeedback"
+					xmlns:the49="https://schemas.the49.com/dotnet/2023/maui" 
+					x:Name="AnswerFeedbackBottomSheet" Background="Transparent"
+					IsCancelable="False">
+
+	<the49:BottomSheet.Detents>
+		<the49:ContentDetent/>
+	</the49:BottomSheet.Detents>
+
+	<the49:BottomSheet.Resources>
+		<ResourceDictionary>
+			<Style x:Key="MessageBorder" TargetType="Border">
+				<Setter Property="BackgroundColor" 
+			Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
+				<Setter Property="Margin" 
+			Value="0, 0, 0, 5" />
+			</Style>
+
+			<Style x:Key="Panels" TargetType="Frame">
+				<Setter Property="BackgroundColor" 
+		Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource PanelsDark}}" />
+			</Style>
+
+			<Style x:Key="OrnamentBackground" TargetType="Frame">
+				<Setter Property="BackgroundColor" 
+			Value="{AppThemeBinding Light={StaticResource OrnamentBackgroundLight}, Dark={StaticResource BackgroundDark}}" />
+			</Style>
+
+			<Style x:Key="Ornament" TargetType="Image">
+				<Setter Property="Source" Value="{AppThemeBinding Light=task_background_light.png, Dark=task_background_dark.png}"/>
+			</Style>
+		</ResourceDictionary>
+	</the49:BottomSheet.Resources>
+
+	<VerticalStackLayout>
+		<Border Stroke="Transparent" Style="{StaticResource MessageBorder}">
+			<Border.StrokeShape>
+				<RoundRectangle CornerRadius="5, 5, 0, 0"/>
+			</Border.StrokeShape>
+			<VerticalStackLayout Padding="10">
+				<Border Stroke="Transparent" 
+						HeightRequest="40" Margin="-10, -10, -10, -10" x:Name="FeedbackReaction">
+					<Border.StrokeShape>
+						<RoundRectangle CornerRadius="10, 10, 0, 0"/>
+					</Border.StrokeShape>
+				</Border>
+				<Border Stroke="Transparent" Style="{StaticResource MessageBorder}" 
+					Margin="-10, -10, -10, -10">
+					<Border.StrokeShape>
+						<RoundRectangle CornerRadius="0, 0, 0, 0"/>
+					</Border.StrokeShape>
+					<VerticalStackLayout Spacing="10" Padding="10">
+						<Label 
+							Text="Welcome to .NET MAUI!"
+							VerticalOptions="Center" 
+							HorizontalOptions="Center" 
+							x:Name="FeedbackText"/>
+
+						<Button Text="Следующее задание" Clicked="OnNextTask" />
+					</VerticalStackLayout>
+				</Border>
+			</VerticalStackLayout>
+		</Border>
+	</VerticalStackLayout>
+	
+</the49:BottomSheet>

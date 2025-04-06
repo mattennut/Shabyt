@@ -8,8 +8,23 @@
 	Shell.NavBarIsVisible="False">
 
     <ShellContent
-        Title="Home"
+        Title="Main"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+
+	<ShellContent
+        Title="Task"
+        ContentTemplate="{DataTemplate local:TaskPage}"
+        Route="TaskPage" />
+
+	<ShellContent
+        Title="Results"
+        ContentTemplate="{DataTemplate local:ResultPage}"
+        Route="ResultPage" />
+
+	<ShellContent
+        Title="Settings"
+        ContentTemplate="{DataTemplate local:SettingsPage}"
+        Route="SettingsPage" />
 
 </Shell>

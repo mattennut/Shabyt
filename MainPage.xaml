@@ -1,91 +1,169 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 x:Class="QzLangProg.MainPage"
-			 BackgroundColor="#FFFFFF">
+			 xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 
+			 BackgroundColor="{AppThemeBinding Dark={StaticResource PanelsDark}, Light={StaticResource EntryLight}}">
 
-	<ScrollView>
-        <VerticalStackLayout
-			Padding="30,0"
-			VerticalOptions="Start"
-			HorizontalOptions="FillAndExpand">
+	<ContentPage.Behaviors>
+		<mct:StatusBarBehavior 
+			StatusBarColor="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}"
+			StatusBarStyle="{AppThemeBinding Light=DarkContent, Dark=LightContent}"/>
+	</ContentPage.Behaviors>
 
-            <Frame CornerRadius="12.5" Background="#D3D0C9" BorderColor="#00000000" 
-				   HeightRequest="25" WidthRequest="355" Margin="20">
-				<Frame CornerRadius="10" Background="#4F4C47" BorderColor="#00000000" HeightRequest="20" WidthRequest="350">
-					<Frame HorizontalOptions="Start" CornerRadius="10" BackgroundColor="#52B788" BorderColor="#00000000" 
-                           HeightRequest="20" WidthRequest="80" Margin="-20" x:Name="ProgressBarCorrect">
-					</Frame>
-				</Frame>
-			</Frame>
-			<Grid Margin="0, -15" HorizontalOptions="Center" WidthRequest="350">
-				<Label FontFamily="MontserratMedium" FontSize="16" Text="58%" HorizontalOptions="Start"/>
-				<Label FontFamily="MontserratMedium" FontSize="16"  HorizontalOptions="Center">
+	<ContentPage.Resources>
+		<Style TargetType="Grid">
+			<Setter Property="VisualStateManager.VisualStateGroups">
+				<VisualStateGroupList>
+					<VisualStateGroup x:Name="CommonStates">
+						<VisualState x:Name="Normal" />
+						<VisualState x:Name="Selected">
+							<VisualState.Setters>
+								<Setter Property="BackgroundColor"
+                            Value="Transparent" />
+							</VisualState.Setters>
+						</VisualState>
+					</VisualStateGroup>
+				</VisualStateGroupList>
+			</Setter>
+		</Style>
+	</ContentPage.Resources>
 
-					<Label.FormattedText>
-						<FormattedString>
-							<Span Text="2" TextColor="{StaticResource Incorrect}" FontFamily="MontserratMedium"/>
-							<Span Text="·" FontFamily="MontserratMedium"/>
-							<Span Text="11" TextColor="{StaticResource Correct}" FontFamily="MontserratMedium"/>
-							<Span Text="·" FontFamily="MontserratMedium"/>
-							<Span Text="3" TextColor="{StaticResource Acceptable}" FontFamily="MontserratMedium"/>
-						</FormattedString>
-					</Label.FormattedText>
+	<Grid RowDefinitions="50, *" RowSpacing="0">
+		<Border StrokeThickness="0" Stroke="Transparent" StrokeShape="RoundRectangle 0, 0, 15, 15" 
+			Margin="0, -10, 0, 0" 
+			BackgroundColor="{AppThemeBinding 
+		Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}">
+			<StackLayout HeightRequest="60" Grid.Row="0" Padding="0, 10, 0, 0"
+					 BackgroundColor="{AppThemeBinding Dark={StaticResource BackgroundDark}, Light={StaticResource BackgroundLight}}">
+				<StackLayout Orientation="Horizontal" Padding="10, 0">
+					<Label	Text="Shabyt" FontSize="32" FontFamily="SatoshiBold" VerticalOptions="Center"
+					TextColor="{AppThemeBinding Light={StaticResource CorrectLight}, Dark={StaticResource CorrectDark}}"/>
 
-				</Label>
-				<Label FontFamily="MontserratMedium" FontSize="16" Text="14/20" HorizontalOptions="End"/>
-			</Grid>
-
-
-			<Frame CornerRadius="15" Background="#D3D0C9" BorderColor="#00000000"
-				Margin="0, 100, 0, 0" WidthRequest="355" HeightRequest="422">
-				<Frame CornerRadius="12.5" Background="#FFFFFF" BorderColor="#00000000" HeightRequest="415" WidthRequest="350">
-					<StackLayout Margin="-20, -22, -20, -21" >
-						<Frame CornerRadius="12.5" HeightRequest="50" Padding="10" BorderColor="#00000000">
-							<StackLayout Orientation="Horizontal" Margin="0, -0" Spacing="7.5">
-								<ImageButton Source="Resources/Images/exit_button.png" HeightRequest="30" WidthRequest="30" CornerRadius="0" 
-									Padding="2.5"/>
-								<Label FontFamily="MontserratMedium" FontSize="24" Text="Әріптестер"/>
-							</StackLayout>
-						</Frame>
-						<Grid>
-							<Frame BackgroundColor="#DDD9D3" CornerRadius="0" BorderColor="#00000000">
-								<Image 
-									x:Name="BackgroundImage"
-									Source="task_background.png"
-									Margin="-20"
-									HorizontalOptions="FillAndExpand"
-									WidthRequest="410"/>
-							</Frame>
-							<Frame BorderColor="#00000000" HeightRequest="50" CornerRadius="0" VerticalOptions="Center">
-								<StackLayout Orientation="Horizontal" Margin="-15, -20" Spacing="7.5">
-									<Frame Padding="0" HeightRequest="40">
-										<Entry WidthRequest="272.5" BackgroundColor="#EDEAF4"></Entry>
-									</Frame>
-									<BoxView HeightRequest="35" WidthRequest="2.5" Color="#D3D0C9" CornerRadius="1.25"/>
-									<ImageButton
-										Margin="-7.5"
-										CornerRadius="10"
-										BackgroundColor="#52B788"
-										WidthRequest="65"
-										HeightRequest="55"
-										Padding="7.5"
-										x:Name="CounterBtn"
-										Source="Resources/Images/send_button.png"
-										SemanticProperties.Hint="Counts the number of times you click"
-										Clicked="OnCounterClicked"
-										HorizontalOptions="Center" />
-								</StackLayout>
-							</Frame>
-						</Grid>
+					<StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand">
+						<Label x:Name="XPLabel" Text="О: 267" Margin="5"/>
+						<Label x:Name="AsyqLabel" Text="А: 76" Margin="5"/>
 					</StackLayout>
-				</Frame>
-				
+					<AbsoluteLayout HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand" WidthRequest="40">
+						<Button HorizontalOptions="EndAndExpand" HeightRequest="40" WidthRequest="40" 
+						BackgroundColor="Transparent" Clicked="OpenSettings"/>
+						<Image Source="Images/Icons/settings.png" HeightRequest="40">
+							<Image.Behaviors>
+								<toolkit:IconTintColorBehavior 
+							TintColor="{AppThemeBinding Light={StaticResource CorrectLight}, 
+							Dark={StaticResource CorrectDark}}"/>
+							</Image.Behaviors>
+						</Image>
+					</AbsoluteLayout>
+
+
+				</StackLayout>
+			</StackLayout>
+		</Border>
+
+		<CollectionView ItemsLayout="VerticalList" x:Name="LessonsCollectionView" IsVisible="true"
+						 SelectionMode="None" Margin="0, 0, 0, 0" Grid.Row="1">
+
+			<CollectionView.ItemTemplate>
+				<DataTemplate>
+					<StackLayout>
+						<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" 
+									 Margin="10, 20, 10, 0">
+							<AbsoluteLayout>
+								<Button HeightRequest="40" WidthRequest="40" VerticalOptions="CenterAndExpand" CornerRadius="10"/>
+								<Image Source="Icons/information.png" HeightRequest="25"
+										AbsoluteLayout.LayoutBounds="0.5,0.5"
+										AbsoluteLayout.LayoutFlags="PositionProportional"></Image>
+							</AbsoluteLayout>
+
+							<StackLayout HorizontalOptions="FillAndExpand" Margin="10, 0, 10, 0">
+								<BoxView Color="#D3D0C9" HeightRequest="2.5" CornerRadius="5" />
+								<Label HorizontalOptions="EndAndExpand" FontAttributes="Bold" FontSize="20" 
+									   VerticalOptions="CenterAndExpand" Text="Раздел #"/>
+							</StackLayout>
+
+						</StackLayout>
+						<BoxView/>
+						<!-- Reserved for simplicity of the button press registering cycle -->
+						<!--<BoxView/>  Reserved for simplicity of the button press registering cycle -->
+						<Label Margin="10, 0, 10, 0"/>
+
+
+						<CollectionView SelectionChanged="LessonSelected" SelectionMode="Single">
+							<CollectionView.ItemTemplate>
+								<DataTemplate>
+									<Grid>
+										<!-- i + 1 -->
+										<!-- i + 2 -->
+										<Border Margin="5" HeightRequest="52" 
+											StrokeShape="RoundRectangle 13.5"
+											Stroke="Transparent">
+
+											<!-- i + 3 -->
+											<StackLayout HorizontalOptions="FillAndExpand" Padding="5" Orientation="Vertical"
+												BackgroundColor="{AppThemeBinding	
+													Light={StaticResource ButtonLight}, 
+													Dark={StaticResource BackgroundDark}}">
+
+												<!-- i + 4 -->
+												<HorizontalStackLayout VerticalOptions="Start" HeightRequest="40">
+													<!-- i + 5 -->
+													<Image Source="{Binding StatusImage}" HeightRequest="40" HorizontalOptions="Start" />
+
+													<!-- i + 6 -->
+													<BoxView HeightRequest="30" WidthRequest="2.5" Color="#D3D0C9" 
+														CornerRadius="1.25" Margin="5, 0, 10, 0" VerticalOptions="Center"/>
+													<!-- i + 7 -->
+													<Label VerticalOptions="Center" Text="{Binding Title}"/>
+												</HorizontalStackLayout>
+
+												<!-- i + 8 -->
+												<StackLayout>
+													<!-- i + 9 -->
+													<Label Text="Тип: урок" Margin="60, 2.5, 5, 2.5"/>
+													<!-- i + 10 -->
+													<Button Text="Начать" Style="{StaticResource AccentButton}" TextColor="{StaticResource TextDark}"
+														HorizontalOptions="End" VerticalOptions="End"
+														Margin="0, 7.5, 2.5, 0"
+														WidthRequest="150" HeightRequest="30" Padding="0"
+														Pressed="OnBottomSheet"/>
+												</StackLayout>
+											</StackLayout>
+										</Border>
+									</Grid>
+								</DataTemplate>
+							</CollectionView.ItemTemplate>
+						</CollectionView>
+					</StackLayout>
+
+				</DataTemplate>
+			</CollectionView.ItemTemplate>
+		</CollectionView>
+
+		<!-- Just don't fucking delete this, idk why it does it like that fr -->
+		<StackLayout IsVisible="false">
+			<Frame>
 			</Frame>
+		</StackLayout>
 
-			
+		<!-- Debug stuff -->
+		<StackLayout IsVisible="false">
+			<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" HeightRequest="40" >
+				<Button Margin="5" Padding="0" Clicked="LoadProgressCatcher" Text="Load lessons" HorizontalOptions="FillAndExpand"/>
+				<Button Margin="5" Padding="0" Clicked="OnDebugClicked" Text="Get types" HorizontalOptions="FillAndExpand"/>
+			</StackLayout>
 
-		</VerticalStackLayout>
-	</ScrollView>
+			<ScrollView HeightRequest="105" Margin="5, -5">
+				<Label  x:Name="asd"/>
+			</ScrollView>
+		</StackLayout>
+	</Grid>
+
+
+
+
 
 </ContentPage>

@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0-android;net7.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFrameworks>net8.0-android34.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
 		<OutputType>Exe</OutputType>
@@ -24,11 +23,13 @@
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">33.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 		<AndroidSigningKeyStore>key.keystore</AndroidSigningKeyStore>
+		<FileVersion>0.9.1.0</FileVersion>
+		<AssemblyVersion>0.9.1.0</AssemblyVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
@@ -45,12 +46,22 @@
 	  <AndroidSigningKeyPass>5jvzP5Q2</AndroidSigningKeyPass>
 	</PropertyGroup>
 
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android34.0'">
+		<ProguardConfiguration Include="Platforms\Android\proguard.cfg" />
+	</ItemGroup>
+
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" />
+		<MauiImage Include="Resources\Images\Icons\artist.png" />
+		<MauiImage Include="Resources\Images\Icons\cook.png" />
+		<MauiImage Include="Resources\Images\Icons\hotel.png" />
+		<MauiImage Include="Resources\Images\Icons\pilot.png" />
+		<MauiImage Include="Resources\Images\Icons\student.png" />
+		<MauiImage Include="Resources\Images\Icons\teacher.png" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#4AB688" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -64,7 +75,117 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+	  <AndroidResource Remove="NewFolder1\**" />
+	  <Compile Remove="NewFolder1\**" />
+	  <EmbeddedResource Remove="NewFolder1\**" />
+	  <MauiCss Remove="NewFolder1\**" />
+	  <MauiXaml Remove="NewFolder1\**" />
+	  <None Remove="NewFolder1\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AndroidResource Remove="Platforms\Android\Resources\values\styles.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Images\Icons\artist.png" />
+	  <None Remove="Resources\Images\Icons\check_mark_button.png" />
+	  <None Remove="Resources\Images\Icons\child.png" />
+	  <None Remove="Resources\Images\Icons\construction-worker.png" />
+	  <None Remove="Resources\Images\Icons\construction_worker.png" />
+	  <None Remove="Resources\Images\Icons\convenience-store.png" />
+	  <None Remove="Resources\Images\Icons\convenience_store.png" />
+	  <None Remove="Resources\Images\Icons\cook.png" />
+	  <None Remove="Resources\Images\Icons\health-worker.png" />
+	  <None Remove="Resources\Images\Icons\health_worker.png" />
+	  <None Remove="Resources\Images\Icons\hospital.png" />
+	  <None Remove="Resources\Images\Icons\hotel.png" />
+	  <None Remove="Resources\Images\Icons\house.png" />
+	  <None Remove="Resources\Images\Icons\information.png" />
+	  <None Remove="Resources\Images\Icons\man.png" />
+	  <None Remove="Resources\Images\Icons\next_track_button.png" />
+	  <None Remove="Resources\Images\Icons\no_entry.png" />
+	  <None Remove="Resources\Images\Icons\no_image.png" />
+	  <None Remove="Resources\Images\Icons\office-worker.png" />
+	  <None Remove="Resources\Images\Icons\office_building.png" />
+	  <None Remove="Resources\Images\Icons\office_worker.png" />
+	  <None Remove="Resources\Images\Icons\old-man.png" />
+	  <None Remove="Resources\Images\Icons\old-woman.png" />
+	  <None Remove="Resources\Images\Icons\old_man.png" />
+	  <None Remove="Resources\Images\Icons\old_woman.png" />
+	  <None Remove="Resources\Images\Icons\person_standing.png" />
+	  <None Remove="Resources\Images\Icons\pilot.png" />
+	  <None Remove="Resources\Images\Icons\settings.png" />
+	  <None Remove="Resources\Images\Icons\student.png" />
+	  <None Remove="Resources\Images\Icons\teacher.png" />
+	  <None Remove="Resources\Images\Icons\woman.png" />
+	  <None Remove="Resources\Images\Icons\writing-hand.png" />
+	  <None Remove="Resources\Images\Icons\writing_hand.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
+		<PackageReference Include="CommunityToolkit.Maui.Markup" Version="4.0.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="Plugin.Maui.Audio" Version="2.1.0" />
+		<PackageReference Include="The49.Maui.BottomSheet" Version="8.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="MainPage.xaml.cs">
+	    <DependentUpon>MainPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Resources\Lessons\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Include="Resources\Images\Icons\check_mark_button.png" />
+	  <MauiImage Include="Resources\Images\Icons\child.png" />
+	  <MauiImage Include="Resources\Images\Icons\construction_worker.png" />
+	  <MauiImage Include="Resources\Images\Icons\convenience_store.png" />
+	  <MauiImage Include="Resources\Images\Icons\health_worker.png" />
+	  <MauiImage Include="Resources\Images\Icons\information.png" />
+	  <MauiImage Include="Resources\Images\Icons\next_track_button.png" />
+	  <MauiImage Include="Resources\Images\Icons\no_entry.png" />
+	  <MauiImage Include="Resources\Images\Icons\no_image.png" />
+	  <MauiImage Include="Resources\Images\Icons\hospital.png" />
+	  <MauiImage Include="Resources\Images\Icons\house.png" />
+	  <MauiImage Include="Resources\Images\Icons\man.png" />
+	  <MauiImage Include="Resources\Images\Icons\office_building.png" />
+	  <MauiImage Include="Resources\Images\Icons\office_worker.png" />
+	  <MauiImage Include="Resources\Images\Icons\old_man.png" />
+	  <MauiImage Include="Resources\Images\Icons\old_woman.png" />
+	  <MauiImage Include="Resources\Images\Icons\person_standing.png" />
+	  <MauiImage Include="Resources\Images\Icons\settings.png" />
+	  <MauiImage Include="Resources\Images\Icons\woman.png" />
+	  <MauiImage Include="Resources\Images\Icons\writing_hand.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="AnswerFeedback.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="ResultPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="SettingsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="TaskPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Update="Microsoft.Maui.Controls" Version="8.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.3" />
 	</ItemGroup>
 
 </Project>
